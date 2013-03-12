@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Faux CAS</title>
+  </head>
+  <body>
+    <form action="auth" method="get">
+      <label for="login">Login : </label><input type="text" id="login"
+      name="login" /><br/>
+      <input type="hidden" name="service" value="<?php echo $service ?>"/>
+      <input type="submit" value="Go !" />
+    </form>
+  </body>
+</html>
