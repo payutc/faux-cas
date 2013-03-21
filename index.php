@@ -20,7 +20,13 @@ session_start();
 function gen_ticket_and_redirect($url) {
   $ticket = $_SESSION['login'] . '@' . $url . '@' .rand(1, 1000);
   $_SESSION[$url]['ticket'] = $ticket;
-  header('Location: ' . $url . '?ticket=' . $ticket);
+  
+  $url_infos = parse_url($url);
+  if (isset($url_infos['query']))
+    $redirect = $url . '&ticket=' . $ticket;
+  else
+    $redirect = $url . '?ticket=' . $ticket;
+  header('Location: ' . $redirect);
 }
 
 switch ($_GET['action']) {
