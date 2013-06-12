@@ -28,16 +28,9 @@ function gen_ticket_and_redirect($url) {
   header('Location: ' . $redirect);
 }
 
-$action = null;
-if (!isset($_GET['action'])) {
-    $r = explode('?', $_SERVER['REQUEST_URI']);
-    $r = $r[0];
-    $r = explode('/', $r);
-    $action = $r[1];
-}
-else {
-    $action = $_GET['action'];
-}
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$r = explode('/', $path);
+$action = end($r);
 
 switch ($action) {
 case 'login':

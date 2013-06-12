@@ -1,2 +1,11 @@
+Options -MultiViews
 RewriteEngine On
-RewriteRule ^([a-zA-Z]+)$  index.php?action=$1 [L,QSA]
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+#RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
