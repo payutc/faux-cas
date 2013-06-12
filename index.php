@@ -16,7 +16,6 @@
  */
 
 session_start();
-
 function gen_ticket_and_redirect($url) {
   $ticket = $_SESSION['login'] . '@' . $url . '@' .rand(1, 1000);
   $_SESSION[$url]['ticket'] = $ticket;
@@ -29,7 +28,18 @@ function gen_ticket_and_redirect($url) {
   header('Location: ' . $redirect);
 }
 
-switch ($_GET['action']) {
+$action = null;
+if (!isset($_GET['action'])) {
+    $r = explode('?', $_SERVER['REQUEST_URI']);
+    $r = $r[0];
+    $r = explode('/', $r);
+    $action = $r[1];
+}
+else {
+    $action = $_GET['action'];
+}
+
+switch ($action) {
 case 'login':
   $service = $_GET['service'];
   if (isset($_SESSION['state']) AND $_SESSION['state'] === 'ok') {
