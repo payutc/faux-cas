@@ -28,9 +28,8 @@ function gen_ticket_and_redirect($url) {
   header('Location: ' . $redirect);
 }
 
-$r = explode('?', $_SERVER['REQUEST_URI']);
-$r = $r[0];
-$r = explode('/', $r);
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$r = explode('/', $path);
 $action = end($r);
 
 switch ($action) {
