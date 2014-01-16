@@ -18,6 +18,7 @@
 session_start();
 function gen_ticket_and_redirect($url) {
   $ticket = $_SESSION['login'] . '@' . $url . '@' .rand(1, 1000);
+  $ticket = urlencode($ticket);
   $_SESSION[$url]['ticket'] = $ticket;
   
   $url_infos = parse_url($url);
@@ -43,7 +44,7 @@ case 'login':
   break;
 case 'auth':
   $service = $_GET['service'];
-  $_SESSION['login'] = $_GET['login'];
+  $_SESSION['login'] = $_GET['username'];
   gen_ticket_and_redirect($service);
   break;
 case 'serviceValidate':
@@ -65,7 +66,6 @@ case 'logout':
   header("Location: $url");
   break;
 default:
-  die('Not a valid action !');
+  http_response_code(404);
+  break;
 }
-
-?>
