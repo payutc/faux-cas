@@ -17,7 +17,7 @@
 
 session_start();
 function gen_ticket_and_redirect($url) {
-  $ticket = $_SESSION['login'] . '@' . $url . '@' .rand(1, 1000);
+  $ticket = str_replace('@', '&#64;', $_SESSION['login']) . '@' . $url . '@' .rand(1, 1000);
   $ticket = urlencode($ticket);
   $_SESSION[$url]['ticket'] = $ticket;
   
